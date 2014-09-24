@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>myApp</title>
+
+    <!-- jquery libs -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <!--[if lt IE 10]>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxtransport-xdomainrequest/1.0.1/jquery.xdomainrequest.min.js"></script>
+    <![endif]-->
+
+    <!-- dadata libs -->
+    <link rel="stylesheet" href="http://dadata.ru/static/css/lib/suggestions-4.7.css" />
+    <script src="http://dadata.ru/static/js/lib/jquery.suggestions-4.7.min.js"></script>
+
+    <!-- angular libs -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.min.js"></script>
+
+    <!-- your scripts -->
+    <!--
+      next script is just a copy of ./ng-dadata.js module
+      aimed make this example available without launching any web-server
+    -->
+    <script>
+      angular
+        .module('dadata', [])
+
+        .directive('dadata', [function () {
+
+          function link (scope, element) {
+            $(element).suggestions({
+              serviceUrl: 'https://dadata.ru/api/v2',
+              token: '<your-api-key>',
+              type: scope.type.toUpperCase(),
+              onSelect: function(suggestion) {
+                scope.data = suggestion.data;
+                scope.$apply();
+              }
+            });
+          }
+
+          return {
+            restrict: 'A',
+            link: link,
+            scope: {
+              type: '@ddtType',
+              data: '=ddtModel'
+            }
+          };
+
+        }]);
+    </script>
+    <script>angular.module('myApp', ['dadata']);</script>
+
+  </head>
+  <body ng-app="myApp">
+
+    <input type="text" size="100" dadata ddt-type="address" ddt-model="addr" />
+    <table ng-show="addr">
+      <tr ng-repeat="(key, value) in addr">
+        <td>{{key}}</td>
+        <td>{{value}}</td>
+      </tr>
+    </table>
+
+  </body>
+</html>
