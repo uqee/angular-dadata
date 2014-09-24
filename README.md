@@ -1,7 +1,7 @@
 angular-dadata
 ==============
 
-AngularJS wrapper over (Dadata)[https://dadata.ru/suggestions/]'s own jQuery plugin
+AngularJS wrapper over [Dadata](https://dadata.ru/suggestions/)'s own jQuery plugin
 
 ## How to run an example
 
