@@ -30,7 +30,6 @@
 
           function link (scope, element) {
             $(element).suggestions({
-              serviceUrl: 'https://dadata.ru/api/v2',
               token: '<your-api-key>',
               type: scope.type.toUpperCase(),
               onSelect: function(suggestion) {
